@@ -18,15 +18,12 @@ def save_processed_pages(doc_title: str, pages: list[ParsedPage], embeddings: li
 
     with EmbeddingDatabase() as database:
         for i in range(len(pages)):
-            database.add_page(doc_title, str(pages[i]), embeddings[i]) 
+            database.add_page(doc_title, str(pages[i]), pages[i].page_num, embeddings[i]) 
 
 
 def process(doc_path: str, doc_title: str):
-    doc_path = sys.argv[1]
-    doc_title = sys.argv[2]
-
     print("Parsing pdf...")
-    parsed_pdf = ParsedPdf(doc_path) 
+    parsed_pdf = ParsedPdf(doc_title, doc_path) 
 
     print("Generating page embeddings...")
     embeddings = get_embeddings(parsed_pdf)

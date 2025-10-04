@@ -5,10 +5,11 @@ import os
 class EmbeddingDatabase:
     con_str_template = "mongodb+srv://{}:{}@cluster0.cbscrmv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-    def add_page(self, doc_title: str, text: str, embedding: list[float]):
+    def add_page(self, doc_title: str, text: str, page_num: int, embedding: list[float]):
         self.collection.insert_one({
-            "title": doc_title,
+            "document_title": doc_title,
             "text": text,
+            "page": page_num,
             "embedding": embedding
         })
 
