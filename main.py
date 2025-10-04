@@ -51,15 +51,20 @@ def search(query: str):
         print("\n")
 
     
+def remove(field: str, value: str):
+    with EmbeddingDatabase() as database:
+        database.removeByField(field, value)
 
 if __name__ == "__main__":
     if (len(sys.argv) < 2 
         or (
             not (sys.argv[1] == "process" and len(sys.argv) == 4) 
             and not (sys.argv[1] == "search" and len(sys.argv) == 3))
+            and not (sys.argv[1] == "remove" and len(sys.argv) == 4)
         ):
             print(f"Usage: python {sys.argv[0]} process [pdf file name] [doc title]")
             print(f"Usage: python {sys.argv[0]} search [query]")
+            print(f"Usage: python {sys.argv[0]} remove [field] [value]")
             sys.exit(1)
     
     load_dotenv()
@@ -69,3 +74,5 @@ if __name__ == "__main__":
         process(sys.argv[2], sys.argv[3])
     elif command == "search":
         search(sys.argv[2])
+    elif command == "remove":
+        remove(sys.argv[2], sys.argv[3])

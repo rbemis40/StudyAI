@@ -43,6 +43,11 @@ class EmbeddingDatabase:
         
         return docs
 
+    def removeByField(self, field: str, value: str):
+        self.collection.delete_many({
+            field: value
+        })
+
     def __enter__(self):
         self.user = os.environ["MONGODB_USER"]
         self.password = os.environ["MONGODB_PASSWORD"]
