@@ -1,7 +1,7 @@
 import openai
 from parsedpdf import ParsedPage
 
-class PageEmbedder:
+class Embedder:
     model_small = 'text-embedding-3-small'
     model_large = 'text-embedding-3-large'
 
@@ -9,10 +9,10 @@ class PageEmbedder:
         self.client = openai.Client()
         return self
 
-    def gen_embedding(self, page: ParsedPage) -> list[float]:
+    def gen_embedding(self, text: str) -> list[float]:
         response = self.client.embeddings.create(
-            input= str(page),
-            model= PageEmbedder.model_large
+            input= text,
+            model= Embedder.model_large
         )
 
         # TODO: Error handling        

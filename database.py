@@ -12,16 +12,47 @@ class EmbeddingDatabase:
             "embedding": embedding
         })
 
+    def search(self, search_embedding: list[float], num_results: int) -> list[dict]:
+        num_candidates = num_results * 20 # The minimum recommended by vector search docs
+
+        with self.collection.aggregate([
+            {
+                "$vectorSearch": {
+                    "exact": False,
+                    "index": "vector_index",
+                    "path": "embedding",
+                    "numCandidates": num_candidates,
+                    "limit": num_results,
+                    "queryVector": search_embedding
+                }
+            },
+            {
+                "$set": {
+                    "score": {"$meta": "vectorSearchScore"}
+                }
+            },
+            {
+                "$project": {
+                    "embedding": 0
+                }
+            }
+        ]) as cursor:
+            docs = []
+            for doc in cursor:
+                docs.append(doc)
+        
+        return docs
+
     def __enter__(self):
-        self.user = os.environ['MONGODB_USER']
-        self.password = os.environ['MONGODB_PASSWORD']
+        self.user = os.environ["MONGODB_USER"]
+        self.password = os.environ["MONGODB_PASSWORD"]
 
         self.client = MongoClient(
             EmbeddingDatabase.con_str_template.format(self.user, self.password)
         )
 
-        database = self.client['StudyAIDatabase']
-        self.collection = database['Pages']
+        database = self.client["StudyAIDatabase"]
+        self.collection = database["Pages"]
 
         return self
 
