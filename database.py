@@ -5,15 +5,16 @@ import os
 class EmbeddingDatabase:
     con_str_template = "mongodb+srv://{}:{}@cluster0.cbscrmv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-    def add_page(self, doc_title: str, text: str, page_num: int, embedding: list[float]):
+    def add_page(self, class_name: str, doc_title: str, text: str, page_num: int, embedding: list[float]):
         self.collection.insert_one({
             "document_title": doc_title,
+            "class_name": class_name,
             "text": text,
             "page": page_num,
             "embedding": embedding
         })
 
-    def search(self, search_embedding: list[float], num_results: int) -> list[dict]:
+    def search(self, class_name: str, search_embedding: list[float], num_results: int) -> list[dict]:
         num_candidates = num_results * 20 # The minimum recommended by vector search docs
 
         with self.collection.aggregate([
@@ -24,7 +25,10 @@ class EmbeddingDatabase:
                     "path": "embedding",
                     "numCandidates": num_candidates,
                     "limit": num_results,
-                    "queryVector": search_embedding
+                    "queryVector": search_embedding,
+                    "filter": {
+                        "class_name": class_name
+                    }
                 }
             },
             {

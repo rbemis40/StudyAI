@@ -12,16 +12,16 @@ def get_embeddings(parsed_pdf: ParsedPdf) -> list[float]:
     
     return embeddings
 
-def save_processed_pages(doc_title: str, pages: list[ParsedPage], embeddings: list[float]):
+def save_processed_pages(class_name: str, doc_title: str, pages: list[ParsedPage], embeddings: list[float]):
     if (len(pages) != len(embeddings)):
         raise IndexError("Length of pages and embeddings must be equal")
 
     with EmbeddingDatabase() as database:
         for i in range(len(pages)):
-            database.add_page(doc_title, str(pages[i]), pages[i].page_num, embeddings[i]) 
+            database.add_page(class_name, doc_title, str(pages[i]), pages[i].page_num, embeddings[i]) 
 
 
-def process(doc_path: str, doc_title: str):
+def process(doc_path: str, class_name: str, doc_title: str):
     print("Parsing pdf...")
     parsed_pdf = ParsedPdf(doc_title, doc_path) 
 
@@ -29,25 +29,25 @@ def process(doc_path: str, doc_title: str):
     embeddings = get_embeddings(parsed_pdf)
 
     print("Saving pages...")
-    save_processed_pages(doc_title, parsed_pdf.pages, embeddings)
+    save_processed_pages(class_name, doc_title, parsed_pdf.pages, embeddings)
 
     print("Done!")
 
-def search(query: str):
+def search(class_name: str, query: str):
     print("Converting query to embedding...")
     with Embedder() as embedder:
         embedding = embedder.gen_embedding(query)
     
     print("Performing search...")
     with EmbeddingDatabase() as database:
-        results = database.search(embedding, 5)
+        results = database.search(class_name, embedding, 5)
     
     relevant_pages = []
     for result in results:
-        print("\n")
-        print(result)
-        print("\n")
         relevant_pages.append(ParsedPage(result['document_title'], result['page'], result['text']))
+        #print("\n")
+        #print(result)
+        #print("\n")
 
     print("Generating response...")
     with ResponseGenerator() as resp_gen:
@@ -61,12 +61,12 @@ def remove(field: str, value: str):
 if __name__ == "__main__":
     if (len(sys.argv) < 2 
         or (
-            not (sys.argv[1] == "process" and len(sys.argv) == 4) 
-            and not (sys.argv[1] == "search" and len(sys.argv) == 3))
+            not (sys.argv[1] == "process" and len(sys.argv) == 5) 
+            and not (sys.argv[1] == "search" and len(sys.argv) == 4))
             and not (sys.argv[1] == "remove" and len(sys.argv) == 4)
         ):
-            print(f"Usage: python {sys.argv[0]} process [pdf file name] [doc title]")
-            print(f"Usage: python {sys.argv[0]} search [query]")
+            print(f"Usage: python {sys.argv[0]} process [pdf file name] [class name] [doc title]")
+            print(f"Usage: python {sys.argv[0]} search [class name] [query]")
             print(f"Usage: python {sys.argv[0]} remove [field] [value]")
             sys.exit(1)
     
@@ -74,8 +74,8 @@ if __name__ == "__main__":
 
     command = sys.argv[1]    
     if command == "process":
-        process(sys.argv[2], sys.argv[3])
+        process(sys.argv[2], sys.argv[3], sys.argv[4])
     elif command == "search":
-        search(sys.argv[2])
+        search(sys.argv[2], sys.argv[3])
     elif command == "remove":
         remove(sys.argv[2], sys.argv[3])
