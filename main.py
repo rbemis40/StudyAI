@@ -1,7 +1,7 @@
 import sys
 from parsedpdf import ParsedPdf, ParsedPage
 from dotenv import load_dotenv
-from embedder import Embedder
+from aitools import Embedder, ResponseGenerator
 from database import EmbeddingDatabase
 
 def get_embeddings(parsed_pdf: ParsedPdf) -> list[float]:
@@ -42,10 +42,16 @@ def search(query: str):
     with EmbeddingDatabase() as database:
         results = database.search(embedding, 5)
     
+    relevant_pages = []
     for result in results:
         print("\n")
         print(result)
         print("\n")
+        relevant_pages.append(ParsedPage(result['document_title'], result['page'], result['text']))
+
+    print("Generating response...")
+    with ResponseGenerator() as resp_gen:
+        print(resp_gen.generate(query, relevant_pages))
 
     
 def remove(field: str, value: str):
