@@ -48,9 +48,14 @@ class EmbeddingDatabase:
         
         return docs
 
-    def removeByField(self, field: str, value: str):
+    def remove_by_field(self, field: str, value: str):
         self.collection.delete_many({
             field: value
+        })
+
+    def get_doc_titles_for_class(self, class_name: str) -> list[str]:
+        return self.collection.distinct("document_title", {
+            "class_name": class_name
         })
 
     def __enter__(self):
