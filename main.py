@@ -12,7 +12,8 @@ if __name__ == "__main__":
         ProcessCommand(),
         SearchCommand(),
         RemoveCommand(),
-        ListCommand()
+        ListByClassCommand(),
+		ListClassesCommand()
     ]
 
     if len(sys.argv) < 2:

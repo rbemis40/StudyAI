@@ -53,6 +53,9 @@ class EmbeddingDatabase:
             field: value
         })
 
+    def get_class_names(self):
+        return self.collection.distinct("class_name")
+
     def get_doc_titles_for_class(self, class_name: str) -> list[str]:
         return self.collection.distinct("document_title", {
             "class_name": class_name
