@@ -1,5 +1,5 @@
 class Command:
-    def __init__(self, name: str, arg_names: list[str]):
+    def __init__(self, name: str, arg_names: list[str], switches: list[str]=[]):
         self.name = name
         self.arg_names = arg_names
 
