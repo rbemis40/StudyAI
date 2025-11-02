@@ -60,6 +60,19 @@ class EmbeddingDatabase:
         return self.collection.distinct("document_title", {
             "class_name": class_name
         })
+    
+    def rename_class(self, old_name: str, new_name: str) -> int:
+        update_result = self.collection.update_many(
+        {
+            "class_name": old_name
+        },
+        {
+            "$set": {
+                "class_name": new_name
+            }
+        })
+
+        return update_result.modified_count
 
     def __enter__(self):
         self.user = os.environ["MONGODB_USER"]

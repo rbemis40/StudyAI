@@ -13,5 +13,5 @@ class Command:
     def is_valid(self, given_name: str, num_args: int) -> bool:
         return given_name == self.name and num_args == len(self.arg_names) 
 
-    def execute(args: list[str]):
+    def execute(self, args: list[str]):
         raise NotImplementedError('Command.execute must be implemented by child class')

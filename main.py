@@ -13,7 +13,8 @@ if __name__ == "__main__":
         SearchCommand(),
         RemoveCommand(),
         ListByClassCommand(),
-		ListClassesCommand()
+		ListClassesCommand(),
+        RenameCommand()
     ]
 
     if len(sys.argv) < 2:
