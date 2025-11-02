@@ -10,7 +10,7 @@ class ListClassesCommand(Command):
 		with EmbeddingDatabase() as database:
 			classes = database.get_class_names()
 
-		print("\n")
+		print("")
 		for class_name in classes:
 			print(class_name)
 
@@ -27,7 +27,7 @@ class ListByClassCommand(Command):
         with EmbeddingDatabase() as database:
             titles = database.get_doc_titles_for_class(class_name)
 
-        print("\n")
+        print("")
         for title in titles:
             print(title)
 
