@@ -63,7 +63,12 @@ class SearchCommand(Command):
 
         print("Generating response...")
         with ResponseGenerator() as resp_gen:
-            print(resp_gen.generate(query, relevant_pages))
+			#print(resp_gen.generate(query, relevant_pages))
+            resp_gen.stream_begin_gen(query, relevant_pages, model="gpt-4")
+            while (text := resp_gen.stream_get_next()) is not None:
+                print(text, end="", flush=True)
+            
+            print("")
 
 class RemoveCommand(Command):
     def __init__(self):
