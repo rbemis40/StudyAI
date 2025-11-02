@@ -1,7 +1,8 @@
 import sys
 from parsedpdf import ParsedPdf, ParsedPage
 from dotenv import load_dotenv
-from aitools import Embedder, ResponseGenerator
+from aitools.embedding import Embedder
+from aitools.generator import ResponseGenerator
 from database import EmbeddingDatabase
 from command import Command
 
