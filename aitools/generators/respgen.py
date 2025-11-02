@@ -37,19 +37,3 @@ class ResponseIterable:
 
     def __next__(self) -> str:
         raise NotImplementedError
-
-# class StreamedResponseGenerator(ResponseGenerator):
-#     def __init__(self):
-#         super().__init__()
-#         self.stream = None
-
-#     def generate(self, query: str, pages: list[ParsedPage], model="gpt-5") -> str:
-#         prompt = self._prepare_prompt(pages) 
-
-#         response = self.client.responses.create(
-#             model= model,
-#             instructions= prompt,
-#             input= query
-#         )
-
-#         return response.output_text
