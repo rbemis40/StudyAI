@@ -2,7 +2,7 @@ import sys
 from parsedpdf import ParsedPdf, ParsedPage
 from dotenv import load_dotenv
 from aitools.embedding import Embedder
-from aitools.generator import ResponseGenerator
+from aitools.generators.streamed import StreamedResponseGenerator
 from database import EmbeddingDatabase
 from command import Command
 
@@ -63,11 +63,10 @@ class SearchCommand(Command):
             #print("\n")
 
         print("Generating response...")
-        with ResponseGenerator() as resp_gen:
-			#print(resp_gen.generate(query, relevant_pages))
-            resp_gen.stream_begin_gen(query, relevant_pages, model="gpt-4")
-            while (text := resp_gen.stream_get_next()) is not None:
-                print(text, end="", flush=True)
+        with StreamedResponseGenerator() as resp_gen:
+            response = resp_gen.get_response(query, relevant_pages, model="gpt-4")
+            for text in response:
+                print(text, end="", flush=True) 
             
             print("")
 
