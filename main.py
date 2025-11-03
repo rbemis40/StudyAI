@@ -30,6 +30,7 @@ if __name__ == "__main__":
     load_dotenv()
     cmd_handler = CommandHandler("studyai", [
         ListCommand(),
+        ProcessCommand(),
     ])
 
     cmd_handler.handle(sys.argv[1:])

@@ -1,13 +1,20 @@
+from argparse import _SubParsersAction, ArgumentParser, Namespace
 from parsedpdf import ParsedPdf
 from .command import Command
 from .tools import get_embeddings, save_processed_pages
 
 class ProcessCommand(Command):
     def __init__(self):
-        super().__init__("process", ["pdf file path", "class name", "doc_title"])
+        super().__init__("process")
     
-    def execute(self, args: list[str]):
-        doc_path, class_name, doc_title = args
+    def setup_parser(self, sub_parser: _SubParsersAction[ArgumentParser]):
+        process_parser = sub_parser.add_parser(self.get_name())
+        process_parser.add_argument("doc_path")
+        process_parser.add_argument("class_name")
+        process_parser.add_argument("doc_title")
+
+    def execute(self, args: Namespace):
+        doc_path, class_name, doc_title = (args.doc_path, args.class_name, args.doc_title)
 
         print("Parsing pdf...")
         parsed_pdf = ParsedPdf(doc_title, doc_path) 
