@@ -31,33 +31,7 @@ if __name__ == "__main__":
     cmd_handler = CommandHandler("studyai", [
         ListCommand(),
         ProcessCommand(),
+        RemoveCommand()
     ])
 
     cmd_handler.handle(sys.argv[1:])
-
-    # print(parser.parse_args(sys.argv[1:]))
-
-    # sys.exit(0)
-    # commands = [
-    #     ProcessCommand(),
-    #     SearchCommand(),
-    #     RemoveCommand(),
-    #     ListByClassCommand(),
-	# 	ListClassesCommand(),
-    #     RenameCommand()
-    # ]
-
-    # if len(sys.argv) < 2:
-    #     print_usage(sys.argv[0], commands)
-    #     sys.exit(-1)
-    
-    # load_dotenv()
-
-    # given_command = sys.argv[1]   
-    # for command in commands:
-    #     if command.is_valid(given_command, len(sys.argv) - 2):
-    #         command.execute(sys.argv[2:])
-    #         break
-    # else:
-    #     print_usage(sys.argv[0], commands)
-    #     sys.exit(-1)
