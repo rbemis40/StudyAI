@@ -11,9 +11,15 @@ class SearchCommand(Command):
         super().__init__("search")
 
     def setup_parser(self, sub_parser: _SubParsersAction[ArgumentParser]):
-        search_parser = sub_parser.add_parser(self.get_name())
-        search_parser.add_argument("class_name")
-        search_parser.add_argument("query")
+        search_parser = sub_parser.add_parser(self.get_name(),
+            description="Search a class using plain text and ask questions about the material."
+        )
+        search_parser.add_argument("class_name",
+            help="the class to search in"
+        )
+        search_parser.add_argument("query",
+            help="what to search for or questions to answer"
+        )
 
     def execute(self, args: Namespace):
         class_name, query = (args.class_name, args.query)

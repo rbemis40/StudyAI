@@ -7,8 +7,12 @@ class ListCommand(Command):
         super().__init__("list")
 
     def setup_parser(self, sub_parser: _SubParsersAction[ArgumentParser]):
-        list_parser = sub_parser.add_parser(self.get_name())
-        list_parser.add_argument("--classname")
+        list_parser = sub_parser.add_parser(self.get_name(),
+            description="Lists previously created classes or documents."
+        )
+        list_parser.add_argument("--classname",
+            help="show a list of document titles for the class"                         
+        )
     
     def execute(self, args: Namespace):
         if (name := args.classname) is None:
