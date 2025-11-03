@@ -32,7 +32,8 @@ if __name__ == "__main__":
         ListCommand(),
         ProcessCommand(),
         RemoveCommand(),
-        RenameCommand()
+        RenameCommand(),
+        SearchCommand()
     ])
 
     cmd_handler.handle(sys.argv[1:])

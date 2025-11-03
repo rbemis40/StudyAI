@@ -1,3 +1,4 @@
+from argparse import _SubParsersAction, ArgumentParser, Namespace
 from aitools.embedding import Embedder
 from database import EmbeddingDatabase
 from parsedpdf import ParsedPage
@@ -7,10 +8,16 @@ from aitools.generators import StreamedResponseGenerator
 
 class SearchCommand(Command):
     def __init__(self):
-        super().__init__("search", ["class name", "query"])
-    
-    def execute(self, args: list[str]):
-        class_name, query = args
+        super().__init__("search")
+
+    def setup_parser(self, sub_parser: _SubParsersAction[ArgumentParser]):
+        search_parser = sub_parser.add_parser(self.get_name())
+        search_parser.add_argument("class_name")
+        search_parser.add_argument("query")
+
+    def execute(self, args: Namespace):
+        class_name, query = (args.class_name, args.query)
+        
         print("Converting query to embedding...")
         with Embedder() as embedder:
             embedding = embedder.gen_embedding(query)
