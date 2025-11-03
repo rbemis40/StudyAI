@@ -1,32 +1,10 @@
 import sys
-import argparse
 from dotenv import load_dotenv
 from commands import *
 from commands.handler import CommandHandler
     
 
-def print_usage(prog_name: str, commands: list[Command]):
-    for command in commands:
-        print(command.get_usage(prog_name))
-
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog="studyai")
-    cmd_parser = parser.add_subparsers(dest="cmd", required=True)
-
-    list_parser = cmd_parser.add_parser("list")
-    list_parser.add_argument("--class", nargs=1)
-
-    process_parser = cmd_parser.add_parser("process")
-    process_parser.add_argument("pdf_path")
-    process_parser.add_argument("class_name")
-    process_parser.add_argument("doc_title")
-
-    search_parser = cmd_parser.add_parser("search")
-    search_parser.add_argument("class_name")
-    search_parser.add_argument("query")
-
-    remove_parser = cmd_parser.add_parser("remove")
-
     load_dotenv()
     cmd_handler = CommandHandler("studyai", [
         ListCommand(),
