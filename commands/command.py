@@ -1,17 +1,15 @@
+from argparse import _SubParsersAction, ArgumentParser, Namespace
+
+
 class Command:
-    def __init__(self, name: str, arg_names: list[str], switches: list[str]=[]):
+    def __init__(self, name: str):
         self.name = name
-        self.arg_names = arg_names
 
-    def get_usage(self, prog_name: str) -> str:
-        arg_str = []
-        for arg in self.arg_names:
-            arg_str.append(f"[{arg}]")
+    def get_name(self):
+        return self.name
 
-        return f"Usage: python {prog_name} {self.name} {' '.join(arg_str)}"
+    def setup_parser(self, sub_parser: _SubParsersAction[ArgumentParser]):
+        raise NotImplementedError("Command.setup_parser must be implemented by child class")
 
-    def is_valid(self, given_name: str, num_args: int) -> bool:
-        return given_name == self.name and num_args == len(self.arg_names) 
-
-    def execute(self, args: list[str]):
-        raise NotImplementedError('Command.execute must be implemented by child class')
+    def execute(self, args: Namespace):
+        raise NotImplementedError("Command.execute must be implemented by child class")

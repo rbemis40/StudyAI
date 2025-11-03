@@ -2,6 +2,7 @@ import sys
 import argparse
 from dotenv import load_dotenv
 from commands import *
+from commands.handler import CommandHandler
     
 
 def print_usage(prog_name: str, commands: list[Command]):
@@ -20,29 +21,42 @@ if __name__ == "__main__":
     process_parser.add_argument("class_name")
     process_parser.add_argument("doc_title")
 
-    print(parser.parse_args(sys.argv[1:]))
+    search_parser = cmd_parser.add_parser("search")
+    search_parser.add_argument("class_name")
+    search_parser.add_argument("query")
 
-    sys.exit(0)
-    commands = [
-        ProcessCommand(),
-        SearchCommand(),
-        RemoveCommand(),
-        ListByClassCommand(),
-		ListClassesCommand(),
-        RenameCommand()
-    ]
+    remove_parser = cmd_parser.add_parser("remove")
 
-    if len(sys.argv) < 2:
-        print_usage(sys.argv[0], commands)
-        sys.exit(-1)
-    
     load_dotenv()
+    cmd_handler = CommandHandler("studyai", [
+        ListCommand(),
+    ])
 
-    given_command = sys.argv[1]   
-    for command in commands:
-        if command.is_valid(given_command, len(sys.argv) - 2):
-            command.execute(sys.argv[2:])
-            break
-    else:
-        print_usage(sys.argv[0], commands)
-        sys.exit(-1)
+    cmd_handler.handle(sys.argv[1:])
+
+    # print(parser.parse_args(sys.argv[1:]))
+
+    # sys.exit(0)
+    # commands = [
+    #     ProcessCommand(),
+    #     SearchCommand(),
+    #     RemoveCommand(),
+    #     ListByClassCommand(),
+	# 	ListClassesCommand(),
+    #     RenameCommand()
+    # ]
+
+    # if len(sys.argv) < 2:
+    #     print_usage(sys.argv[0], commands)
+    #     sys.exit(-1)
+    
+    # load_dotenv()
+
+    # given_command = sys.argv[1]   
+    # for command in commands:
+    #     if command.is_valid(given_command, len(sys.argv) - 2):
+    #         command.execute(sys.argv[2:])
+    #         break
+    # else:
+    #     print_usage(sys.argv[0], commands)
+    #     sys.exit(-1)

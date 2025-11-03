@@ -1,28 +1,33 @@
+from argparse import _SubParsersAction, ArgumentParser, Namespace
 from database import EmbeddingDatabase
 from .command import Command
 
-class ListClassesCommand(Command):
-	def __init__(self):
-		super().__init__("list", [])
-
-	def execute(self, args: list[str]):
-		print("Getting unique class names...")
-		with EmbeddingDatabase() as database:
-			classes = database.get_class_names()
-
-		print("")
-		for class_name in classes:
-			print(class_name)
-
-		print("\nDone!")
-
-class ListByClassCommand(Command):
+class ListCommand(Command):
     def __init__(self):
-        super().__init__('list', ['class name'])
-    
-    def execute(self, args: list[str]):
-        class_name, = args
+        super().__init__("list")
 
+    def setup_parser(self, sub_parser: _SubParsersAction[ArgumentParser]):
+        list_parser = sub_parser.add_parser(self.get_name())
+        list_parser.add_argument("--classname")
+    
+    def execute(self, args: Namespace):
+        if (name := args.classname) is None:
+            self._list_classes()
+        else:
+            self._list_by_class(name)
+
+    def _list_classes(self):
+        print("Getting unique class names...")
+        with EmbeddingDatabase() as database:
+            classes = database.get_class_names()
+
+        print("")
+        for class_name in classes:
+            print(class_name)
+
+        print("\nDone!")
+
+    def _list_by_class(self, class_name: str):
         print("Getting unique titles...")
         with EmbeddingDatabase() as database:
             titles = database.get_doc_titles_for_class(class_name)
