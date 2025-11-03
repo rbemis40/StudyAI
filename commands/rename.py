@@ -1,13 +1,19 @@
+from argparse import _SubParsersAction, ArgumentParser, Namespace
 from commands.command import Command
 from database import EmbeddingDatabase
 
 
 class RenameCommand(Command):
     def __init__(self):
-        super().__init__("rename", ["old class name", "new class name"])
+        super().__init__("rename")
     
-    def execute(self, args: list[str]):
-        old_name, new_name = args
+    def setup_parser(self, sub_parser: _SubParsersAction[ArgumentParser]):
+        rename_parser = sub_parser.add_parser(self.get_name())
+        rename_parser.add_argument("old_name")
+        rename_parser.add_argument("new_name")
+
+    def execute(self, args: Namespace):
+        old_name, new_name = (args.old_name, args.new_name)
 
         print("Renaming class...")
         with EmbeddingDatabase() as database:

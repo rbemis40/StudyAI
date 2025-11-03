@@ -31,7 +31,8 @@ if __name__ == "__main__":
     cmd_handler = CommandHandler("studyai", [
         ListCommand(),
         ProcessCommand(),
-        RemoveCommand()
+        RemoveCommand(),
+        RenameCommand()
     ])
 
     cmd_handler.handle(sys.argv[1:])
