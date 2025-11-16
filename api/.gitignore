@@ -1,0 +1,5 @@
+**/__pycache__
+**/test_docs
+**/.env
+.vscode
+.DS_Store

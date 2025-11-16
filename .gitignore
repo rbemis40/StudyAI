@@ -1,5 +1,2 @@
-__pycache__
-test_docs
-**/.env
-.vscode
+.vscode/
 .DS_Store
