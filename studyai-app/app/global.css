@@ -12,6 +12,8 @@
     --primary-color: #40464D;
     --primary-gray: #2F2F2F;
     --light-gray: #3C3D41;
+    --border-color: #747474;
+
 
     --p-font-size: 16px;
     --p-font-weight: 300;
@@ -40,7 +42,7 @@ p {
 
 input {
     appearance: none;
-    border: 1px solid #747474 ;
+    border: 1px solid var(--border-color);
     background-color: var(--light-gray);
     font-family: "Noto Serif";
     font-size: var(--p-font-size);

@@ -1,0 +1,23 @@
+#notebook {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#notebook:hover {
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+}
+
+.inline {
+    display: inline;
+}
+
+#arrow {
+    width: 24px;
+    height: 24px;
+    float: right;
+    color: #FFFFFF56;
+}
