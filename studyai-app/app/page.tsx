@@ -1,6 +1,6 @@
 import styles from "@/app/home.module.css";
+import Gradient from "@/components/gradient/gradient";
 import Sidebar from "@/components/sidebar/sidebar";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
       <Sidebar/>
       <div id={styles.container}>
         <div id={styles.search}>
-          <h1>Hello World!</h1>
+          
         </div>
         <Gradient/>
       </div>
