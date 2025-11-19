@@ -1,4 +1,7 @@
+"use client";
+
 import styles from "@/components/sidebar/sidebar_styles.module.css";
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export default function Sidebar() {
     return (
@@ -8,6 +11,7 @@ export default function Sidebar() {
             <div id={styles.notebooks}>
                 <p>English Notes</p>
                 <p>Science Notes</p>
+                <KeyboardArrowRightIcon></KeyboardArrowRightIcon>
             </div>
         </div>
     )
