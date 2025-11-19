@@ -1,7 +1,9 @@
+import styles from "@/app/home.module.css";
+
 export default function Home() {
   return (
     <main>
-      <div>Hello world!</div>
+      <div id={styles.test}>Hello world!</div>
     </main>
   );
 }
