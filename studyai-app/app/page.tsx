@@ -1,16 +1,18 @@
 import styles from "@/app/home.module.css";
+import Gradient from "@/components/gradient/gradient";
+import Sidebar from "@/components/sidebar/sidebar";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main>
-      <Image 
-        src="/wip.jpg" 
-        alt="Work in Progress"
-        width={893}
-        height={360}
-        style={{display: "block", margin: "auto"}}
-      />
+    <main id={styles.main}>
+      <Sidebar/>
+      <div id={styles.container}>
+        <div id={styles.search}>
+          
+        </div>
+        <Gradient/>
+      </div>
     </main>
   );
 }

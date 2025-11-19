@@ -3,6 +3,9 @@
     padding: 0;
 }
 
-:root {
-    --primary-color: red;
+:root, body {
+    width: 100%;
+    height: 100%;
+    --primary-color: #40464D;
+    --primary-gray: #2F2F2F;
 }
