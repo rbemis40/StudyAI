@@ -48,3 +48,8 @@ input {
     font-size: var(--p-font-size);
     font-weight: var(--p-font-weight);
 }
+
+.unselectable {
+    -webkit-user-select: none; /* Safari */
+    user-select: none;
+}

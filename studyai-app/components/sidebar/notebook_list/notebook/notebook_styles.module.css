@@ -21,3 +21,14 @@
     float: right;
     color: #FFFFFF56;
 }
+
+.rotated {
+    transform: rotate(90deg);
+}
+
+#materials {
+    box-sizing: border-box;
+    margin-left: 10px;
+    padding-left: 5px;
+    border-left: 1px solid var(--border-color);
+}
