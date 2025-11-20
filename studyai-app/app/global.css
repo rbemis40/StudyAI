@@ -17,6 +17,8 @@
 
     --p-font-size: 16px;
     --p-font-weight: 300;
+
+    background-color: var(--primary-color);
 }
 
 h1 {

@@ -21,6 +21,10 @@ export default function NotebookList() {
             materials: ["Lecture 1", "Lecture 2", "Lecture 3"]
         },
         {
+            name: "Many Many Notes",
+            materials: Array.from({length: 100}).map((_, i) => `Lecture ${i+1}`)
+        },
+        {
             name: "Test",
             materials: ["Test 1", "Test 2"]
         }
