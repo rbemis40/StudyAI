@@ -22,13 +22,31 @@
     color: #FFFFFF56;
 }
 
-.rotated {
-    transform: rotate(90deg);
-}
-
 #materials {
     box-sizing: border-box;
     margin-left: 10px;
     padding-left: 5px;
     border-left: 1px solid var(--border-color);
+}
+
+@keyframes arrow_expand {
+    from {transform: rotate(0deg); }
+    to {transform: rotate(90deg); }
+}
+
+@keyframes arrow_unexpand {
+    from { transform: rotate(90deg); }
+    to { transform: rotate(0deg); }
+}
+
+.expanded_arrow {
+    animation-name: arrow_expand;
+    animation-duration: 0.25s;
+    animation-fill-mode: both;
+}
+
+.unexpanded_arrow {
+    animation-name: arrow_unexpand;
+    animation-duration: 0.25s;
+    animation-fill-mode: both;
 }

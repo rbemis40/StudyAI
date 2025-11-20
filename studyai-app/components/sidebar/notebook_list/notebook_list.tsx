@@ -9,7 +9,6 @@ export default function NotebookList() {
 
     function onRequestExpand(index: number) {
         setExpandedNotebook(index === expandedNotebook ? -1 : index);
-        console.log(index);
     }
 
     const noteData: NotebookData[] = [
