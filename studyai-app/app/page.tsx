@@ -12,7 +12,7 @@ export default function Home() {
       <div id={styles.container}>
         <div id={styles.search}>
           <h1>Get started searching your Science Notes...</h1>
-          <Searchbar width="750px" size="large" placeholder="Hello, world!"/>
+          <Searchbar width="750px" size="large" placeholder="Enter your search..."/>
         </div>
         <Gradient/>
       </div>
