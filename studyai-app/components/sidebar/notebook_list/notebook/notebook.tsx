@@ -47,7 +47,7 @@ export default function Notebook({data, expanded, onRequestExpand} : NotebookPro
                 <p className={`unselectable ${styles.inline}`}>{data.name}</p>
                 <KeyboardArrowRightIcon id={styles.arrow} className={`${styles.inline} ${(visibility === "growing" || visibility === "visible") ? styles.expanded_arrow : styles.unexpanded_arrow}`}/>
             </div>
-            {visibility !== "hidden" && (<Grow duration={250} mode={visibility === "shrinking" ? "shrink" : "grow"} onComplete={onAnimComplete}>
+            {visibility !== "hidden" && (<Grow duration={100} mode={visibility === "shrinking" ? "shrink" : "grow"} onComplete={onAnimComplete}>
                 <div id={styles.materials}>
                     {data.materials.map(name => <p key={name}>{name}</p>)}
                 </div>

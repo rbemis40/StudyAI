@@ -13,8 +13,7 @@
 
 #search_bar {
     border-radius: 16px;
-    height: 32px;
-    color: #FFFFFF84;
+    min-height: 32px;
     box-sizing: border-box;
     padding-left: 12px;
 }

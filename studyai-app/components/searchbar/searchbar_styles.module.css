@@ -1,0 +1,31 @@
+#hidden_area {
+    display: none;
+}
+
+#search_bar {
+    border: 1px solid var(--border-color);
+    background-color: var(--light-gray);
+    box-sizing: border-box;
+    cursor: text;
+    resize: none;
+    overflow: hidden;
+}
+
+.large {
+    font-size: 16px;
+    min-height: 48px;
+    height: 48px;
+    border-radius: 24px;
+    padding-left: 20px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+}
+
+.small {
+
+}
+
+#text {
+    color: var(--input-placeholder-color);
+    opacity: 75%;
+}

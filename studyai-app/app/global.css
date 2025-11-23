@@ -18,6 +18,8 @@
     --p-font-size: 16px;
     --p-font-weight: 300;
 
+    --input-placeholder-color: #FFFFFF84;
+
     background-color: var(--primary-color);
 }
 
@@ -42,13 +44,14 @@ p {
     color: white;
 }
 
-input {
+input, textarea {
     appearance: none;
     border: 1px solid var(--border-color);
     background-color: var(--light-gray);
     font-family: "Noto Serif";
     font-size: var(--p-font-size);
-    font-weight: var(--p-font-weight);
+    font-weight: var(--p-font-weight); 
+    color: var(--input-placeholder-color);
 }
 
 .unselectable {
