@@ -2,7 +2,7 @@
 
 import styles from "@/components/sidebar/sidebar_styles.module.css";
 import NotebookList from "@/components/sidebar/notebook_list/notebook_list";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
 import { NotebookData } from "./notebook_list/notebook/notebook";
 import { Trie, TrieData } from "@/utils/trie";
 
@@ -30,12 +30,14 @@ export default function Sidebar() {
         }
     ]);
 
-    const [trie, setTrie] = useState(new Trie<NotebookData>(
-        notebooks.map(notebook => ({
-            name: notebook.name.toLowerCase(),
-            value: notebook
-        } as TrieData<NotebookData>))
-    ));
+    const trie = useMemo(() => {
+        return new Trie<NotebookData>(
+            notebooks.map(notebook => ({
+                name: notebook.name.toLowerCase(),
+                value: notebook
+            } as TrieData<NotebookData>))
+        )
+    }, []);
 
     function search(event: ChangeEvent<HTMLInputElement>) {
         setNotebooks(trie.search(event.target.value.toLowerCase()));
